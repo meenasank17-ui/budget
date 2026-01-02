@@ -18,72 +18,52 @@ while running:
   print("3. exit")
     
   choice = input("enter your choice (1-3): ")
-  if choice == "1"
-    catergory = input("enter expense catergory (food, transport, rent, etc.): ")
+  if choice == "1":
+    category = input("enter expense category (food, transport, rent, etc.): ")
 
     try:
       amount = float(input("enter amount spent: "))
     except ValueError:
       print("invalid amount. please enter a valid number.")
+      continue
 
     if category in expenses:
-      expenses[catergory].append(amount)
+      expenses[category].append(amount)
     else:
-      expenses[catergory] = [amount]
+      expenses[category] = [amount]
 
-    print(f"added ${amount:.2f} to {catergory}")
+    print(f"added ${amount:.2f} to {category}")
 
-elif choice == "2":
+  elif choice == "2":
     print("\n--- spending summary ---")
 
-    total spent = 0
+    total_spent = 0
 
-# first pass: calculate total spending
-for amounts in expenses.values():
-  total_spent += sum(amounts)
+    for amounts in expenses.values():
+      total_spent += sum(amounts)
 
-if total_spent == 0:
-  print("no expenses recorded yet.")
-  continue
+    if total_spent == 0:
+      print("no expenses recorded yet.")
+      continue
 
-# second pass: calculate catergory totals and percentages
-for catergory, amounts in expenses.items():
-  catergory_total = sum(amounts)
-  percentage = (catergory_total / total_spent) * 100
+    for category, amounts in expenses.items():
+      category_total = sum(amounts)
+      percentage = (category_total / total_spent) * 100
 
-  print(f"{catergory}: ${catergory_total:.2f} ({percentage:.1f}%)")
+      print(f"{category}: ${category_total:.2f} ({percentage:.1f}%)")
 
-    # budget limit check
-    if catergory in limits and catergory_total > limits[catergory]:
-      print(f" warning: {catergory} spending exceeded the set limit!")
+      if category in limits and category_total > limits[category]:
+        print(f" warning: {category} spending exceeded the set limit!")
 
-  print(f"\nTotal spent: ${total_spent:.2f}")
+    print(f"\nTotal spent: ${total_spent:.2f}")
 
-  if total_spent > 1000:
-    print("overall spending is higher than expected.")
-    
+    if total_spent > 1000:
+      print("overall spending is higher than expected.")
 
-    for catergory, amounts in expenses.items():
-      catergory_total = sum(amounts)
-      total_spent += categrory_total
-      print(f"{catergory}: ${catergory_total:.2f}")
-    
-      if catergory in limits and catergory_total  > limits[catergory]:
-        print(f" {catergory} spending exceeded limit !")
+  elif choice == "3":
+    print ("exiting the program. bye.")
+    running = False
 
-
-    
-    print(f"\nTotal Spent: ${total_spent:.2f}")
-
-  if total_spent > 1000:
-      print("warning: high spending detected!")
-
-elif choice == "3":
-  print ("exiting the program. bye.")
-  running = False
-
-else:
-  print("invalid choice. please select 1, 2, or 3.")
-
-        
+  else:
+    print("invalid choice. please select 1, 2, or 3.")
     
